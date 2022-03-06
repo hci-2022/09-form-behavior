@@ -1,0 +1,152 @@
+var html = document.querySelector('html');
+
+// Add a `js` class for any JavaScript-dependent CSS
+// See https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+html.classList.add('js');
+
+if (html.id === 'create-post') {
+  // Logic for post-creation form goes here
+  var form = document.querySelector('form[name="post"]');
+  restoreFormDataFromLocalStorage(form.name);
+  form.addEventListener('input', debounce(handleFormInputActivity, 300));
+  form.addEventListener('change', handleFormInputActivity);
+}
+
+if (html.id === 'preview-post') {
+  // Logic for post preview goes here
+}
+
+/*
+  Callback Functions
+*/
+
+function handleFormInputActivity(event) {
+  var inputElements = ['INPUT', 'SELECT', 'TEXTAREA'];
+  var targetElement = event.target;
+  if (!inputElements.includes(targetElement.tagName)) {
+    return; // this is not an element we care about
+  }
+  // Implicit 'else', care of the `return;` statement above...
+  console.log('We heard an event on a form input of type', targetElement.tagName);
+  writeFormDataToLocalStorage(targetElement.form.name, targetElement);
+}
+
+
+/*
+  Core Functions
+*/
+
+function writeFormDataToLocalStorage(formName, inputElement) {
+  var formData = findOrCreateLocalStorageObject(formName);
+
+  // Set just a single input value
+  if (inputElement) {
+    formData[inputElement.name] = inputElement.value;
+  } else {
+    // Set all form input values, e.g., on a submit event
+    var formElements = document.forms[formName].elements;
+    for (var i = 0; i < formElements.length; i++) {
+      // Don't store empty elements, like the submit button
+      if (formElements[i].value !== "") {
+        formData[formElements[i].name] = formElements[i].value;
+      }
+    }
+  }
+
+  // Write the formData JS object to localStorage as JSON
+  writeJsonToLocalStorage(formName, formData);
+}
+
+function findOrCreateLocalStorageObject(keyName) {
+  var jsObject = readJsonFromLocalStorage(keyName);
+
+  if (Object.keys(jsObject).length === 0) {
+    writeJsonToLocalStorage(keyName, jsObject);
+  }
+
+  return jsObject;
+}
+
+function readJsonFromLocalStorage(keyName) {
+  var jsonObject = localStorage.getItem(keyName);
+
+  if (!jsonObject) {
+    jsObject = {};
+  } else {
+    try {
+      jsObject = JSON.parse(jsonObject);
+    } catch(e) {
+      console.error(e);
+      jsObject = {};
+    }
+  }
+
+  return jsObject;
+}
+
+function writeJsonToLocalStorage(keyName, jsObject) {
+  localStorage.setItem(keyName, JSON.stringify(jsObject));
+}
+
+function destroyFormDataInLocalStorage(formName) {
+  localStorage.removeItem(formName);
+}
+
+function restoreFormDataFromLocalStorage(formName) {
+  var jsObject = readJsonFromLocalStorage(formName);
+  var formValues = Object.entries(jsObject);
+  if (formValues.length === 0) {
+    return; // nothing to restore
+  }
+  // Set all form input values, e.g., on a submit event
+  var formElements = document.forms[formName].elements;
+  for (var i = 0; i < formValues.length; i++) {
+    console.log('Form input key:', formValues[i][0], 'Form input value:', formValues[i][1])
+    formElements[formValues[i][0]].value = formValues[i][1];
+  }
+}
+
+/*
+  Utility Functions
+*/
+
+// debounce to not execute until after an action has stopped (delay)
+function debounce(callback, delay) {
+  var timer; // function-scope timer to debounce()
+  return function() {
+    var context = this; // track function-calling context
+    // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
+    var args = arguments; // hold onto arguments object
+    // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+
+    // Reset the timer
+    clearTimeout(timer);
+
+    // Set the new timer
+    timer = setTimeout(function() {
+      // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
+      callback.apply(context, args);
+    }, delay);
+  }
+}
+
+// throttle to slow execution to a certain amount of elapsed time (limit)
+function throttle(callback, limit) {
+  var throttling; // function-scope boolean for testing throttle state
+  return function() {
+    var context = this; // track function-calling context
+    // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
+    var args = arguments; // hold onto arguments object
+    // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+
+    // Run the function if not currently throttling
+    if (!throttling) {
+      // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
+      callback.apply(context, args);
+      throttling = true;
+      setTimeout(function() {
+        throttling = false;
+      }, limit);
+    }
+  }
+}

@@ -10,10 +10,19 @@ if (html.id === 'create-post') {
   restoreFormDataFromLocalStorage(form.name);
   form.addEventListener('input', debounce(handleFormInputActivity, 300));
   form.addEventListener('change', handleFormInputActivity);
+  form.addEventListener('submit', handleFormSubmission);
 }
 
 if (html.id === 'preview-post') {
   // Logic for post preview goes here
+  renderFormDataFromLocalStorage('post');
+  html.addEventListener('click', function(event) {
+    if (event.target.id === 'new-post') {
+      event.preventDefault();
+      localStorage.removeItem('post');
+      window.location.href = event.target.href;
+    }
+  });
 }
 
 /*
@@ -31,6 +40,12 @@ function handleFormInputActivity(event) {
   writeFormDataToLocalStorage(targetElement.form.name, targetElement);
 }
 
+function handleFormSubmission(event) {
+  var targetElement = event.target;
+  event.preventDefault(); // STOP the default browser behavior
+  writeFormDataToLocalStorage(targetElement.name); // STORE all the form data
+  window.location.href = targetElement.action; // PROCEED to the URL referenced by the form action
+}
 
 /*
   Core Functions
@@ -98,11 +113,23 @@ function restoreFormDataFromLocalStorage(formName) {
   if (formValues.length === 0) {
     return; // nothing to restore
   }
-  // Set all form input values, e.g., on a submit event
   var formElements = document.forms[formName].elements;
   for (var i = 0; i < formValues.length; i++) {
-    console.log('Form input key:', formValues[i][0], 'Form input value:', formValues[i][1])
+    console.log('Form input key:', formValues[i][0], 'Form input value:', formValues[i][1]);
     formElements[formValues[i][0]].value = formValues[i][1];
+  }
+}
+
+function renderFormDataFromLocalStorage(storageKey) {
+  var jsObject = readJsonFromLocalStorage(storageKey);
+  var formValues = Object.entries(jsObject);
+  if (formValues.length === 0) {
+    return; // nothing to restore
+  }
+  var previewElement = document.querySelector('#post');
+  for (var i = 0; i < formValues.length; i++) {
+    var el = previewElement.querySelector('#'+formValues[i][0]);
+    el.innerText = formValues[i][1];
   }
 }
 

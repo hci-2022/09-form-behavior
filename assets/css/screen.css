@@ -7,3 +7,8 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 /* stylelint-enable */
 
 /* Begin site styles below */
+
+/* Styles for error messages */
+p[class$="-error"] {
+  color: red;
+}

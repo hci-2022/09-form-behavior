@@ -36,7 +36,24 @@ function handleFormInputActivity(event) {
     return; // this is not an element we care about
   }
   // Implicit 'else', care of the `return;` statement above...
-  console.log('We heard an event on a form input of type', targetElement.tagName);
+  var errorClass = targetElement.name + '-error';
+  var errorEl = document.querySelector('.' + errorClass);
+
+  if (targetElement.value.length < 3) {
+    // Don't add duplicate errors
+    if (!errorEl) {
+      var errorText = capitalizeFirstLetter(targetElement.name) + ' must be at least 3 characters';
+      var errorEl = document.createElement('p');
+      errorEl.className = errorClass
+      errorEl.innerText = errorText;
+      targetElement.before(errorEl);
+    }
+  } else {
+    if (errorEl) {
+      errorEl.remove();
+    }
+  }
+
   writeFormDataToLocalStorage(targetElement.form.name, targetElement);
 }
 
@@ -136,6 +153,11 @@ function renderFormDataFromLocalStorage(storageKey) {
 /*
   Utility Functions
 */
+
+function capitalizeFirstLetter(string) {
+  var firstLetter = string[0].toUpperCase();
+  return firstLetter + string.substring(1);
+}
 
 // debounce to not execute until after an action has stopped (delay)
 function debounce(callback, delay) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="create-post">
 <head>
   <title>Create New Post</title>
   <meta charset="utf-8" />
@@ -7,7 +7,32 @@
   <link rel="stylesheet" href="assets/css/screen.css" />
 </head>
 <body>
-
+  <main>
+    <form name="post" action="preview/" method="get">
+      <h2>Create a new post</h2>
+      <ol>
+        <li>
+          <label for="title">Post Title</label>
+          <input id="title" name="title" type="text" />
+        </li>
+        <li>
+          <label for="category">Post Category</label>
+          <select id="category" name="category">
+            <option value="article">Article</option>
+            <option value="link">Link</option>
+            <option value="photo">Photo</option>
+          </select>
+        </li>
+        <li>
+          <label for="content">Post Body</label>
+          <textarea id="content" name="content"></textarea>
+        </li>
+        <li>
+          <button type="submit">Preview Post</button>
+        </li>
+      </ol>
+    </form>
+  </main>
   <script src="assets/css/site.js"></script>
 </body>
 </html>

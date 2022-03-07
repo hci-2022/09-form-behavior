@@ -101,10 +101,9 @@ function findOrCreateLocalStorageObject(keyName) {
 
 function readJsonFromLocalStorage(keyName) {
   var jsonObject = localStorage.getItem(keyName);
+  var jsObject = {};
 
-  if (!jsonObject) {
-    jsObject = {};
-  } else {
+  if (jsonObject) {
     try {
       jsObject = JSON.parse(jsonObject);
     } catch(e) {

@@ -8,7 +8,7 @@ if (html.id === 'create-post') {
   // Logic for post-creation form goes here
   var form = document.querySelector('form[name="post"]');
   restoreFormDataFromLocalStorage(form.name);
-  form.addEventListener('input', debounce(handleFormInputActivity, 300));
+  form.addEventListener('input', debounce(handleFormInputActivity, 800));
   form.addEventListener('change', handleFormInputActivity);
   form.addEventListener('submit', handleFormSubmission);
 }

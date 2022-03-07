@@ -43,7 +43,7 @@ function handleFormInputActivity(event) {
     // Don't add duplicate errors
     if (!errorEl) {
       var errorText = capitalizeFirstLetter(targetElement.name) + ' must be at least 3 characters';
-      var errorEl = document.createElement('p');
+      errorEl = document.createElement('p');
       errorEl.className = errorClass
       errorEl.innerText = errorText;
       targetElement.before(errorEl);

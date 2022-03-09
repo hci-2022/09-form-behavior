@@ -1,0 +1,20 @@
+{
+  "name": "09-form-behavior",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hci-2022/09-form-behavior.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hci-2022/09-form-behavior/issues"
+  },
+  "homepage": "https://github.com/hci-2022/09-form-behavior#readme"
+}

@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "backstopjs": "^6.0.4"
+    "backstopjs": "^6.0.4",
+    "nightwatch": "^2.0.10"
   }
 }

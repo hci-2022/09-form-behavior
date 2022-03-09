@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/hci-2022/09-form-behavior#readme",
   "devDependencies": {
-    "backstopjs": "^6.0.4"
+    "backstopjs": "^6.0.4",
+    "chromedriver": "^99.0.0",
+    "geckodriver": "^3.0.1",
+    "nightwatch": "^2.0.10"
   }
 }

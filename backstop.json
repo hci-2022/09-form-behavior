@@ -21,6 +21,64 @@
       "onBeforeScript": "puppet/clearLocalStorage.js",
       "misMatchThreshold" : 0.1,
       "requireSameDimensions": true
+    },
+    {
+      "label": "Form with Correct Values",
+      "url": "http://localhost:8080/",
+      "onBeforeScript": "puppet/clearLocalStorage.js",
+      "selectors": [
+        "form"
+      ],
+      "keyPressSelectors": [
+        {
+          "selector": "#title",
+          "keyPress": "My Fancy Title"
+        },
+        {
+          "selector": "#content",
+          "keyPress": "My fancy content."
+        }
+      ],
+      "clickSelector": "form",
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "Form with Incorrect Values",
+      "url": "http://localhost:8080/",
+      "onBeforeScript": "puppet/clearLocalStorage.js",
+      "selectors": [
+        "form"
+      ],
+      "keyPressSelectors": [
+        {
+          "selector": "#title",
+          "keyPress": "Oh"
+        },
+        {
+          "selector": "#content",
+          "keyPress": "My"
+        }
+      ],
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "Submitted Form with Correct Values",
+      "url": "http://localhost:8080/",
+      "keyPressSelectors": [
+        {
+          "selector": "#title",
+          "keyPress": "My Fancy Title"
+        },
+        {
+          "selector": "#content",
+          "keyPress": "My fancy content."
+        }
+      ],
+      "clickSelector": "button",
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true
     }
   ],
   "paths": {

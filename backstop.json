@@ -50,6 +50,22 @@
       ],
       "clickSelector": "#title",
       "misMatchThreshold" : 0.1
+    },
+    {
+      "label": "Submitted correct form data",
+      "url": "http://localhost:8080/",
+      "keyPressSelectors": [
+        {
+          "selector": "#title",
+          "keyPress": "My test post title"
+        },
+        {
+          "selector": "#content",
+          "keyPress": "My test post content."
+        }
+      ],
+      "clickSelector": "button[type='submit']",
+      "misMatchThreshold" : 0.1
     }
 
   ],

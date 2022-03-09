@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/hci-2022/09-form-behavior/issues"
   },
-  "homepage": "https://github.com/hci-2022/09-form-behavior#readme"
+  "homepage": "https://github.com/hci-2022/09-form-behavior#readme",
+  "devDependencies": {
+    "backstopjs": "^6.0.4"
+  }
 }

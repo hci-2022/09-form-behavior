@@ -18,6 +18,7 @@
     {
       "label": "Empty Form",
       "url": "http://localhost:8080/",
+      "onBeforeScript": "puppet/clearLocalStorage.js",
       "misMatchThreshold" : 0.1,
       "requireSameDimensions": true
     }

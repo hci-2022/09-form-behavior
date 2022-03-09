@@ -16,9 +16,9 @@
   "onReadyScript": "puppet/onReady.js",
   "scenarios": [
     {
-      "label": "BackstopJS Homepage",
-      "url": "https://garris.github.io/BackstopJS/",
-      "misMatchThreshold" : 0.1,
+      "label": "Empty post form",
+      "url": "http://localhost:8080/",
+      "misMatchThreshold" : 0.1
     }
   ],
   "paths": {

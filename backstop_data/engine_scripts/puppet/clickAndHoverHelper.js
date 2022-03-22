@@ -9,6 +9,7 @@ module.exports = async (page, scenario) => {
     for (const keyPressSelectorItem of [].concat(keyPressSelector)) {
       await page.waitFor(keyPressSelectorItem.selector);
       await page.type(keyPressSelectorItem.selector, keyPressSelectorItem.keyPress);
+      await page.$eval(keyPressSelectorItem.selector, (el) => el.blur());
     }
   }
 

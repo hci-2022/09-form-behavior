@@ -48,7 +48,6 @@
           "keyPress": "My"
         }
       ],
-      "clickSelector": "#title",
       "misMatchThreshold" : 0.1
     },
     {

@@ -10,6 +10,9 @@ describe('The Post Form', function() {
   it('short input should display the correct error', function(browser) {
     browser
       .url('http://localhost:8080/')
+      .executeScript(function() {
+        localStorage.clear();
+      })
       .sendKeys('input#title', 'Oh')
       .sendKeys('textarea#content', 'My')
       .waitForElementPresent('.content-error')
@@ -18,7 +21,5 @@ describe('The Post Form', function() {
       .assert.textContains('.content-error', 'Content must be at least 3 characters')
       .assert.textContains('.title-error', 'Title must be at least 3 characters');
   });
-
-  /* TODO: Add helper to clear local storage before running tests */
 
 });

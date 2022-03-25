@@ -1,18 +1,21 @@
 describe('The Post Form', function() {
 
+  before(function(browser) {
+    this.postform = browser.url('http://localhost:8080/');
+    this.postform
+      .executeScript(function() {
+        localStorage.clear();
+      });
+  });
+
   it('the form should exist', function(browser) {
-    browser
-      .url('http://localhost:8080/')
+    this.postform
       .assert
-        .elementPresent('form[name="post"]');
+      .elementPresent('form[name="post"]');
   });
 
   it('short input should display the correct error', function(browser) {
-    browser
-      .url('http://localhost:8080/')
-      .executeScript(function() {
-        localStorage.clear();
-      })
+    this.postform
       .sendKeys('input#title', 'Oh')
       .sendKeys('textarea#content', 'My')
       .waitForElementPresent('.content-error')
